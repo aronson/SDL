@@ -524,6 +524,7 @@ file(GLOB SOURCE_FILES
   ${SDL2_SOURCE_DIR}/src/thread/*.c
   ${SDL2_SOURCE_DIR}/src/timer/*.c
   ${SDL2_SOURCE_DIR}/src/video/*.c
+  ${SDL2_SOURCE_DIR}/src/video/intrin/*.c
   ${SDL2_SOURCE_DIR}/src/video/yuv2rgb/*.c)
 
 if(USE_INTELCC)
@@ -3333,7 +3334,7 @@ if(SDL_SHARED)
   if(NOT SDL_LIBC)
     if(SDL_CPU_X86)
       # FIXME: should be added for all architectures (missing symbols for ARM)
-      target_link_libraries(SDL2 PRIVATE "-nodefaultlib:MSVCRT")
+      # target_link_libraries(SDL2 PRIVATE "-nodefaultlib:MSVCRT")
     endif()
     if(HAS_Q_NO_USE_LIBIRC)
       target_compile_options(SDL2 PRIVATE /Q_no-use-libirc)

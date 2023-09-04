@@ -25,6 +25,10 @@
 #include "SDL_video.h"
 #include "SDL_blit.h"
 
+#include "intrin/SDL_blit_A_sse4.1.h"
+#include "intrin/SDL_blit_A_avx2.h"
+#include "SDL_cpuinfo.h"
+
 /* Functions to perform alpha blended blitting */
 
 /* N->1 blending with per-surface alpha */
@@ -1376,6 +1380,9 @@ static void BlitNtoNSurfaceAlphaKey(SDL_BlitInfo *info)
     }
 }
 
+static int hasAVX2 = -1;
+static int hasSSE4_1 = -1;
+
 /* General (slow) N->N blending with pixel alpha */
 static void BlitNtoNPixelAlpha(SDL_BlitInfo *info)
 {
@@ -1396,6 +1403,22 @@ static void BlitNtoNPixelAlpha(SDL_BlitInfo *info)
     /* Set up some basic variables */
     srcbpp = srcfmt->BytesPerPixel;
     dstbpp = dstfmt->BytesPerPixel;
+
+    if (hasAVX2 == -1) {
+        hasAVX2 = SDL_HasAVX2();
+    }
+    if (hasAVX2 && srcbpp == 4 && dstbpp == 4 && width >= 4) {
+        BlitNtoNPixelAlpha_AVX2(info);
+        return;
+    }
+
+    if (hasSSE4_1 == -1) {
+        hasSSE4_1 = SDL_HasSSE41();
+    }
+    if (hasSSE4_1 && srcbpp == 4 && dstbpp == 4 && width >= 2) {
+        BlitNtoNPixelAlpha_SSE4_1(info);
+        return;
+    }
 
     while (height--) {
         /* *INDENT-OFF* */ /* clang-format off */

@@ -172,6 +172,9 @@
     <Filter Include="render\direct3d12">
       <UniqueIdentifier>{f48c2b17-1bee-4fec-a7c8-24cf619abe08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="video\intrin">
+      <UniqueIdentifier>{6098f84b-ebed-47bb-8d03-36d0e5b987fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\begin_code.h">
@@ -830,6 +833,12 @@
       <Filter>render\direct3d12</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\hidapi\SDL_hidapi_c.h" />
+    <ClInclude Include="..\..\src\video\intrin\SDL_blit_A_avx2.h">
+      <Filter>video\intrin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\video\intrin\SDL_blit_A_sse4.1.h">
+      <Filter>video\intrin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\audio\wasapi\SDL_wasapi.c" />
@@ -1356,6 +1365,12 @@
       <Filter>render\direct3d12</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\stdlib\SDL_mslibc.c" />
+    <ClCompile Include="..\..\src\video\intrin\SDL_blit_A_avx2.c">
+      <Filter>video\intrin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video\intrin\SDL_blit_A_sse4_1.c">
+      <Filter>video\intrin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\main\windows\version.rc" />
